@@ -6,6 +6,8 @@ const ToDoList = (props) => {
     onDeleteTaskButtonClick,
     onTaskCompleteChange,
     filteredTasks,
+    firstIncompleteTaskId,
+    firstIncompleteTaskRef,
   } = props;
   const hasTasks = tasks.length > 0;
   const isEmptyFilteredTasks = filteredTasks?.length === 0;
@@ -22,6 +24,9 @@ const ToDoList = (props) => {
     <ul className="todo__list">
       {(filteredTasks ?? tasks).map((task) => (
         <ToDoItem
+          ref={
+            task.id === firstIncompleteTaskId ? firstIncompleteTaskRef : null
+          }
           className="todo__item"
           key={task.id}
           {...task}
