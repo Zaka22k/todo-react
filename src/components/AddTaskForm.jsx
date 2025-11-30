@@ -4,12 +4,12 @@ import { useContext } from "react";
 import { TasksContext } from "../context/TasksContext";
 
 const AddTaskForm = () => {
-  const { onAddTask, newTaskTitle, setNewTaskTitle, newTaskInputRef } =
+  const { addTask, newTaskTitle, setNewTaskTitle, newTaskInputRef } =
     useContext(TasksContext);
 
   const onSubmit = (e) => {
     e.preventDefault();
-    onAddTask();
+    addTask();
   };
 
   return (
