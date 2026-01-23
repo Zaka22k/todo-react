@@ -1,1 +1,1 @@
-export { default } from "./ToDoInfo.jsx";
+export { default } from './TodoInfo'

@@ -1,1 +1,1 @@
-export { default } from "./Router.jsx";
+export { default } from './Router'

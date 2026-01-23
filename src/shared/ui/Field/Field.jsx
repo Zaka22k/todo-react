@@ -1,39 +1,40 @@
-import styles from "./Field.module.scss";
+import styles from './Field.module.scss'
 
 const Field = (props) => {
   const {
-    className = "",
+    className = '',
     id,
     label,
-    type = "text",
-    onInput,
+    type = 'text',
     value,
-    ref,
     error,
-  } = props;
+    onInput,
+    ref,
+  } = props
 
   return (
     <div className={`${styles.field} ${className}`}>
-      <label className={styles.label} htmlFor={id}>
+      <label
+        className={styles.label}
+        htmlFor={id}
+      >
         {label}
       </label>
       <input
-        className={`${styles.input} ${error ? styles.isInvalid : ""}`}
+        className={`${styles.input} ${error ? styles.isInvalid : ''}`}
         id={id}
         placeholder=" "
         autoComplete="off"
         type={type}
         value={value}
-        onChange={onInput}
+        onInput={onInput}
         ref={ref}
       />
       {error && (
-        <span title={error} className={styles.error}>
-          {error}
-        </span>
+        <span className={styles.error} title={error}>{error}</span>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default Field;
+export default Field

@@ -1,1 +1,1 @@
-export { default } from "./TaskPage.jsx";
+export { default } from './TaskPage'

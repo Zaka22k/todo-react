@@ -1,24 +1,37 @@
-import { memo, useContext } from "react";
-import { TasksContext } from "@/entities/todo";
-import RouterLink from "@/shared/ui/RouterLink";
-import styles from "./TodoItem.module.scss";
+import { memo, useContext } from 'react'
+import { TasksContext } from '@/entities/todo'
+import RouterLink from '@/shared/ui/RouterLink'
+import styles from './TodoItem.module.scss'
+import {highlightCaseInsensitive} from '@/shared/utils/highlight'
 
-const ToDoItem = (props) => {
-  const { className = "", id, title, isDone } = props;
+const TodoItem = (props) => {
+  const {
+    className = '',
+    id,
+    title,
+    isDone,
+  } = props
+
   const {
     firstIncompleteTaskRef,
     firstIncompleteTaskId,
     deleteTask,
-    toogleTaskComplete,
+    toggleTaskComplete,
     disappearingTaskId,
     appearingTaskId,
-  } = useContext(TasksContext);
+    searchQuery,
+  } = useContext(TasksContext)
+
+  const highlightedTitle = highlightCaseInsensitive(title, searchQuery)
 
   return (
     <li
-      className={`${styles.todoItem} ${className} ${
-        disappearingTaskId === id ? styles.isDisappearing : ""
-      } ${appearingTaskId === id ? styles.isAppearing : ""}`}
+      className={`
+        ${styles.todoItem} 
+        ${className} 
+        ${disappearingTaskId === id ? styles.isDisappearing : ''}
+        ${appearingTaskId === id ? styles.isAppearing : ''}
+      `}
       ref={id === firstIncompleteTaskId ? firstIncompleteTaskRef : null}
     >
       <input
@@ -26,13 +39,18 @@ const ToDoItem = (props) => {
         id={id}
         type="checkbox"
         checked={isDone}
-        onChange={(target) => toogleTaskComplete(id, target.checked)}
+        onChange={({ target }) => {
+          toggleTaskComplete(id, target.checked)
+        }}
       />
-      <label className={`${styles.label} visually-hidden`} htmlFor={id}>
+      <label
+        className={`${styles.label} visually-hidden`}
+        htmlFor={id}
+      >
         {title}
       </label>
       <RouterLink to={`/tasks/${id}`} aria-label="Task detail page">
-        {title}
+        <span dangerouslySetInnerHTML={{ __html: highlightedTitle }} />
       </RouterLink>
       <button
         className={styles.deleteButton}
@@ -57,7 +75,7 @@ const ToDoItem = (props) => {
         </svg>
       </button>
     </li>
-  );
-};
+  )
+}
 
-export default memo(ToDoItem);
+export default memo(TodoItem)
