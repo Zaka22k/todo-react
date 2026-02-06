@@ -1,41 +1,45 @@
-const URL = "http://localhost:3001/tasks";
+const URL = 'http://localhost:3001/tasks'
 
 const headers = {
-  "Content-Type": "application/json",
-};
+  'Content-Type': 'application/json',
+}
 
 const serverAPI = {
   getAll: () => {
-    return fetch(URL).then((response) => response.json());
+    return fetch(URL).then((response) => response.json())
   },
 
   getById: (id) => {
-    return fetch(`${URL}/${id}`).then((response) => response.json());
+    return fetch(`${URL}/${id}`)
+      .then((response) => response.json())
   },
 
   add: (task) => {
     return fetch(URL, {
-      method: "POST",
+      method: 'POST',
       headers,
       body: JSON.stringify(task),
-    }).then((response) => response.json());
+    })
+      .then((response) => response.json())
   },
 
   delete: (id) => {
-    return fetch(`${URL}/${id}`, { method: "DELETE" });
+    return fetch(`${URL}/${id}`, { method: 'DELETE' })
   },
 
   deleteAll: (tasks) => {
-    return Promise.all(tasks.map(({ id }) => serverAPI.delete(id)));
+    return Promise.all(
+      tasks.map(({ id }) => serverAPI.delete(id))
+    )
   },
 
   toggleComplete: (id, isDone) => {
     return fetch(`${URL}/${id}`, {
-      method: "PATCH",
+      method: 'PATCH',
       headers,
-      body: JSON.stringify({ isDone }),
-    });
+      body: JSON.stringify({ isDone })
+    })
   },
-};
+}
 
-export default serverAPI;
+export default serverAPI
